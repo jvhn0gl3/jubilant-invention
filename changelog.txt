@@ -1,1 +1,1 @@
-Added Silent Mode (-s): Push code without sending a notification.
+Added -h/--help menu and --version flag.
