@@ -1,1 +1,1 @@
-Enabled Auto-Update: The script now updates itself automatically.
+Added Silent Mode (-s): Push code without sending a notification.
