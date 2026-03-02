@@ -1,1 +1,1 @@
-Added --test mode to verify ntfy connection without pushing.
+Enabled Auto-Update: The script now updates itself automatically.
