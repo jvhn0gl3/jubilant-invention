@@ -1,0 +1,1 @@
+Initial public release with profile-based notifications and GitHub diff mapping.
