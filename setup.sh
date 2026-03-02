@@ -10,12 +10,22 @@ if [ -z "$USER_TOPIC" ]; then
     exit 1
 fi
 
-# Create the core script
 cat << INNER_EOF > ~/send_commit.sh
 #!/bin/bash
-CURRENT_VERSION="1.0.0"
+CURRENT_VERSION="1.1.0"
 BASE_URL="https://raw.githubusercontent.com/jvhn0gl3/jubilant-invention/main"
 NTFY_TOPIC="$USER_TOPIC"
+
+# --- TEST MODE CHECK ---
+if [ "\$1" == "--test" ]; then
+    echo "Sending test notification to ntfy.sh/\$NTFY_TOPIC..."
+    curl -H "Title: 🛠️ Jubilant-Invention: Test" \\
+         -H "Priority: default" \\
+         -H "Tags: bell,tada" \\
+         -d "Connection successful! Your 'gpush' setup is ready for \$USER_TOPIC." \\
+         ntfy.sh/\$NTFY_TOPIC
+    exit 0
+fi
 
 # 1. Version Check
 REMOTE_VERSION=\$(curl -s --connect-timeout 2 "\$BASE_URL/version.txt" || echo "\$CURRENT_VERSION")
@@ -64,4 +74,4 @@ INNER_EOF
 
 chmod +x ~/send_commit.sh
 grep -qxF "alias gpush='bash ~/send_commit.sh'" ~/.bashrc || echo "alias gpush='bash ~/send_commit.sh'" >> ~/.bashrc
-echo "✅ Setup Complete! Run 'source ~/.bashrc' then use 'gpush'."
+echo "✅ Setup Complete! Use 'gpush --test' to verify your connection."
